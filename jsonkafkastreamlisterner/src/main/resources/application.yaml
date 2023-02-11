@@ -1,0 +1,33 @@
+server:
+  port: 8084
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        notification-input-channel:
+          destination: pos-topic
+        notification-output-channel:
+          destination: loyalty-topic
+#        hadoop-input-channel:
+#          destination: pos-topic
+        hadoop-output-channel:
+          destination: hadoop-sink-topic
+      kafka:
+        streams:
+          binder:
+            brokers: localhost:9092
+            bindings:
+#              notification-input-channel:
+#                consumer:
+#                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+              notification-output-channel:
+                producer:
+                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+#              hadoop-input-channel:
+#                consumer:
+#                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+              hadoop-output-channel:
+                producer:
+                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+
