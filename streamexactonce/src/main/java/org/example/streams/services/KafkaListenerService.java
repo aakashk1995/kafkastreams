@@ -11,6 +11,7 @@ import org.example.streams.bindings.KafkaListenerBinding;
 import org.example.streams.model.HadoopRecord;
 import org.example.streams.model.Notification;
 import org.example.streams.model.PosInvoice;
+import org.example.streams.serde.AppSerde;
 import org.example.streams.serializers.HadoopRecordDeserializer;
 import org.example.streams.serializers.HadoopRecordSerializer;
 import org.example.streams.serializers.NotificationDeserializer;
@@ -32,9 +33,6 @@ public class KafkaListenerService {
 
     @StreamListener("input-channel-1")
     public void process(KStream<String, PosInvoice> input){
-
-        Serde<HadoopRecord> hadoopRecordSerde = Serdes.serdeFrom(new HadoopRecordSerializer(),new HadoopRecordDeserializer());
-        Serde<Notification> notificationSerde = Serdes.serdeFrom(new NotificationSerializer(),new NotificationDeserializer());
         KStream<String, HadoopRecord> hadoopRecordKStream = input
                 .mapValues( v -> recordBuilder.getMaskedInvoice(v))
                 .flatMapValues( v -> recordBuilder.getHadoopRecords(v));
@@ -46,7 +44,10 @@ public class KafkaListenerService {
         hadoopRecordKStream.foreach((k, v) -> log.info(String.format("Hadoop Record:- Key: %s, Value: %s", k, v)));
         notificationKStream.foreach((k, v) -> log.info(String.format("Notification:- Key: %s, Value: %s", k, v)));
 
-        hadoopRecordKStream.to("hadoop-sink-topic", Produced.with(Serdes.String(), hadoopRecordSerde));
-        notificationKStream.to("loyalty-topic",Produced.with(Serdes.String(),notificationSerde));
+        hadoopRecordKStream.to("hadoop-sink-topic", Produced.with(Serdes.String(), AppSerde.HadoopRecord()));
+        notificationKStream.to("loyalty-topic",Produced.with(Serdes.String(),AppSerde.Notification()));
+
+
+
     }
 }

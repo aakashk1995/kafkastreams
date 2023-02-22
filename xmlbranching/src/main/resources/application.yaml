@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        xml-input-channel:
+          destination: xml-order-topic
+        india-orders-channel:
+          destination: india-orders
+        abroad-orders-channel:
+          destination: abroad-orders
+      kafka:
+        streams:
+          binder:
+            applicationId: xmlbranching
+            brokers:  localhost:9092
+            configuration:
+              india-orders-channel:
+                producer:
+                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+              abroad-orders-channel:
+                producer:
+                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+

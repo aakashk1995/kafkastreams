@@ -29,6 +29,7 @@
        <module>avroposgen</module>
         <module>jsonkafkastreamlisterner</module>
         <module>streamexactonce</module>
+        <module>xmlbranching</module>
 	</modules>
 
 
