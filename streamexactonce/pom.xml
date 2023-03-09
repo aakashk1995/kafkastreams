@@ -53,6 +53,11 @@
             <classifier>test-binder</classifier>
             <type>test-jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.example.streams</groupId>
+            <artifactId>customserdes</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
     <dependencyManagement>

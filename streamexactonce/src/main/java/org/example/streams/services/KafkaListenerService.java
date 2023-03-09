@@ -25,13 +25,13 @@ import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
-@EnableBinding(KafkaListenerBinding.class)
+//@EnableBinding(KafkaListenerBinding.class)
 public class KafkaListenerService {
 
     @Autowired
     public RecordBuilder recordBuilder;
 
-    @StreamListener("input-channel-1")
+   // @StreamListener("input-channel-1")
     public void process(KStream<String, PosInvoice> input){
         KStream<String, HadoopRecord> hadoopRecordKStream = input
                 .mapValues( v -> recordBuilder.getMaskedInvoice(v))
@@ -46,8 +46,6 @@ public class KafkaListenerService {
 
         hadoopRecordKStream.to("hadoop-sink-topic", Produced.with(Serdes.String(), AppSerde.HadoopRecord()));
         notificationKStream.to("loyalty-topic",Produced.with(Serdes.String(),AppSerde.Notification()));
-
-
 
     }
 }

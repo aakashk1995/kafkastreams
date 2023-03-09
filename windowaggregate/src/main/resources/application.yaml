@@ -1,0 +1,21 @@
+server:
+  port: 8087
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        input-channel-1:
+          destination: pos-topic
+      kafka:
+        streams:
+          binder:
+            applicationId: windowsaggregate
+            brokers:  localhost:9092
+            configuration:
+              commit.interval.ms: 10000
+              state.dir: state-store-window-aggregrate
+          bindings:
+            input-channel-1:
+              consumer:
+                timestampExtractorBeanName: invoiceTimesExtractor

@@ -24,12 +24,16 @@
     </properties>
 
 	<modules>
+        <module>customserdes</module>
 		<module>hellostreams</module>
         <module>jsonposgen</module>
        <module>avroposgen</module>
         <module>jsonkafkastreamlisterner</module>
         <module>streamexactonce</module>
         <module>xmlbranching</module>
+        <module>streamingaggregrate</module>
+        <module>windowaggregate</module>
+        <module>kafkajoins</module>
 	</modules>
 
 

@@ -13,8 +13,9 @@ spring:
             applicationId: streamexactonce
             brokers:  localhost:9092
             bindings:
-              input-channe-1:
+              input-channel-1:
                 consumer:
                   valueSerde: org.springframework.kafka.support.serializer.JsonSerde
             configuration:
-              processing.guarantee: exactly_once
+              commit.interval.ms: 10000
+              state.dir: state-store-streamonce

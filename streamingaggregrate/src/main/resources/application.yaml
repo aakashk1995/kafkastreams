@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        word-channel-1:
+          destination: word-count-topic
+      kafka:
+        streams:
+          binder:
+            applicationId: streamingaggregrate
+            brokers:  localhost:9092
+            configuration:
+              commit.interval.ms: 10000
+              state.dir: state-store
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#          bindings:
+#            word-channel-1:
+#              consumer:
+#                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde

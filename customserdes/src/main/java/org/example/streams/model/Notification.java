@@ -18,4 +18,6 @@ public class Notification  {
     private Double TotalAmount;
     @JsonProperty("EarnedLoyaltyPoints")
     private Double EarnedLoyaltyPoints;
+    @JsonProperty("TotalLoyaltyPoints")
+    private Double TotalLoyaltyPoints;
 }

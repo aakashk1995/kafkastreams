@@ -1,0 +1,20 @@
+#server:
+#  port: 8080
+#
+#spring:
+#  cloud:
+#    stream:
+#      bindings:
+#        input-channel-1:
+#          destination: pos-topic
+#      kafka:
+#        streams:
+#          binder:
+#            applicationId: streamexactonce
+#            brokers:  localhost:9092
+#            bindings:
+#              input-channe-1:
+#                consumer:
+#                  valueSerde: org.springframework.kafka.support.serializer.JsonSerde
+#            configuration:
+#              processing.guarantee: exactly_once
